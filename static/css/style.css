@@ -1,0 +1,20 @@
+body {
+    background-color: #dcdcdc; 
+}
+.list-group-item {
+    background-color: #f0f8ff;
+      .content {
+          width: 100%;
+      }             
+}
+.mb-4 {
+    background-color: #b0c4de;
+    padding: 1rem 1rem 1rem 1rem;
+}
+        
+        /* 横幅いっぱいになったら折り返す */
+p, div, span, .text-content {
+    word-wrap: break-word; /* 長い単語があっても自動で折り返す */
+    word-break: break-word; /* 単語の途中で折り返す */
+    white-space: normal; /* テキストが自動的に折り返される */
+}

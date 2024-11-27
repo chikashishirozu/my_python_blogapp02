@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="shortcut icon" href="favicon.ico/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+    <style>
+        html body {
+            background-color: #dcdcdc;
+        }
+        div.list-group-item {
+            background-color: #f0f8ff;
+        }
+        .mb-4 {
+            background-color: #b0c4de;
+            padding: 1rem 1rem 1rem 1rem;
+        }
+        .highlight {
+            background-color: yellow;
+        }        
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Search Results</h1>
+        
+        {% load highlight %} <!-- カスタムフィルターをロード -->
+
+        {% if query %}
+            <h2>検索結果: "{{ query }}"</h2>
+            {% if posts %}
+                {% for post in posts %}
+                    <div class="list-group-item">
+                        <h2>{{ post.title|highlight:query|safe }}</h2>
+                        <p>{{ post.text|highlight:query|safe }}</p>
+                        <p><em>Published on {{ post.published_date }}</em></p>
+                        {% if post.published_date != post.created_date %}
+                            <p class="text-muted small">Last updated on {{ post.published_date }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>該当する記事が見つかりませんでした。</p>
+            {% endif %}
+        {% else %}
+            <p>検索クエリを入力してください。</p>
+        {% endif %}
+        
+        <!-- 戻るボタン -->
+        <a href="{% url 'post_list' %}" class="btn btn-primary">記事一覧に戻る</a>        
+    </div>
+</body>
+</html>
+

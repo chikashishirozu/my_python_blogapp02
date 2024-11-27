@@ -1,0 +1,42 @@
+<!-- blog/templates/blog/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog</title>
+    <link rel="shortcut icon" href="{% static 'favicon.ico/favicon.png' %}">
+</head>
+<body>
+    <h1>Welcome to the Blog</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.text|safe }}</p> <!-- |safe フィルターで HTML をレンダリング -->
+                <p><em>Published on {{ post.published_date }}</em></p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- ページネーションのリンク -->
+    <div>
+        <span class="step-links">
+            {% if posts.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ posts.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+            </span>
+
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">next</a>
+                <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,97 @@
+<!-- blog/post_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog</title>
+    <link rel="shortcut icon" href="favicon.ico/favicon.png">
+    <link rel="stylesheet" href="css/style.css">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+    <style>
+        html body {
+            background-color: #dcdcdc;
+        }
+        div.list-group-item {
+            background-color: #f0f8ff;
+              .content {
+                  width: 100%;
+              }                 
+        }
+        .mb-4 {
+            background-color: #b0c4de;
+            padding: 1rem 1rem 1rem 1rem;
+        }
+        /* 横幅いっぱいになったら折り返す */
+        p, div, span, pre, .text-content, .col-12 {
+            max-width: 100%;
+            white-space: pre-wrap; /* 改行を保持しつつ、テキストを折り返す */  
+            word-wrap: break-word; /* 長い単語があっても自動で折り返す */
+            word-break: break-word; /* 単語の途中で折り返す */
+            white-space: normal; /* テキストが自動的に折り返される */
+            overflow-wrap: break-word; /* 必要に応じて折り返す */   
+        }        
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Welcome to the Blog</h1>
+        
+           <!-- 検索フォーム -->
+        <form method="GET" action="{% url 'post_list' %}" class="form-inline mb-4">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ request.GET.q }}">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>           
+        
+        <div class="list-group">
+            {% for post in posts %}
+                <div class="list-group-item">
+                    <div class="col-12"> <!-- 画面幅に応じた列幅を指定 -->
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.text|safe }}</p> <!-- |safe フィルターで HTML をレンダリング -->
+                    <p><em>Published on {{ post.published_date }}</em></p>
+                    {% if post.published_date != post.created_date %}
+                        <p class="text-muted small">Last updated on {{ post.published_date }}</p>
+                    {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- ページネーションのリンク -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination mt-4">
+                {% if posts.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ posts.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item disabled">
+                    <span class="page-link">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+                </li>
+
+                {% if posts.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ posts.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ posts.paginator.num_pages }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>
+
+
