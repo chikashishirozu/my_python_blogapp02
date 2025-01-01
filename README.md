@@ -1,5 +1,6 @@
 # my_python_blogapp02
 
+https://hiroppy123.pythonanywhere.com/blog/
 
 # Steps required to start and run the application
 
@@ -24,6 +25,10 @@ $ python3 -m django --version
 Start by specifying the IP address and port
 
 $ python3 manage.py runserver 8003
+
+Access http://127.0.0.1:8003/blog/ in your browser
+
+Check the dummy data
 
 Access http://127.0.0.1:8003/admin/ in your browser
 
