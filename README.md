@@ -6,11 +6,15 @@ https://hiroppy123.pythonanywhere.com/blog/
 
 Install python 12 or higher, venv, Django, sqlite3, etc.
 
-Set up a virtual environment
+# Set up a virtual environment
+
+$ rm -r myvenv
+
+$ python3 -m venv myvenv
 
 $ source myvenv/bin/activate
 
-Reinstall pip in the virtual environment, upgrade, check, install Django, check
+# Reinstall pip in the virtual environment, upgrade, check, install Django, check
 
 $ python3 -m ensurepip --upgrade
 
@@ -22,7 +26,7 @@ $ pip install django
 
 $ python3 -m django --version
 
-Start by specifying the IP address and port
+# Start by specifying the IP address and port
 
 $ python3 manage.py runserver 127.0.0.1:8003
 
@@ -35,4 +39,5 @@ Access http://127.0.0.1:8003/admin/ in your browser
 Log in to the administrator screen
 
 user: hiroppy123
+
 password: 74eU$g509Zf!93
